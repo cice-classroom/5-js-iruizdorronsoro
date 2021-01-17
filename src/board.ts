@@ -27,8 +27,22 @@ export class Board extends LitElement {
   }
 
   public checkVictory() {
-    if (this.game.isAVictory()) {
-      this.text = 'You win'
+    if (this.game.checkVictory('X')) {
+      this.text = 'You win Player 1'
+      const customEventPlayer1 = new CustomEvent('on-player1-win', {
+        bubbles: true,
+        composed: true,
+      })
+      this.dispatchEvent(customEventPlayer1)
+    } else if (this.game.checkVictory('O')) {
+      this.text = 'You win Player 2'
+      const customEventPlayer2 = new CustomEvent('on-player2-win', {
+        bubbles: true,
+        composed: true,
+      })
+      this.dispatchEvent(customEventPlayer2)
+    } else if (this.game.checkDraw()) {
+      this.text = "It's a draw"
     }
   }
 
@@ -90,7 +104,7 @@ export class Board extends LitElement {
           @on-new-box-click="${this.checkVictory}"
         ></board-box>
       </div>
-      <text-panel>${this.text}</text-panel>
+      <text-panel .text="${this.text}" .reset="${this.reset}"></text-panel>
     `
   }
 }

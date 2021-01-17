@@ -18,7 +18,6 @@ export class Engine {
   public Play(id: string) {
     let player = this.currentPlayer
     const boardPosition: number[] = id.split('').map(x => +x)
-    this.board[boardPosition[0] - 1][boardPosition[1] - 1] = player
     if (player === 'O') {
       this.currentPlayer = 'X'
     } else if (player === 'X') {
@@ -27,10 +26,83 @@ export class Engine {
       player = 'X'
       this.currentPlayer = 'O'
     }
+    this.board[boardPosition[0] - 1][boardPosition[1] - 1] = player
     return player
   }
 
-  public isAVictory() {
+  public checkVictory(playerName: string) {
+    if (
+      this.board[0][0] === playerName &&
+      this.board[0][1] === playerName &&
+      this.board[0][2] === playerName
+    ) {
+      return true
+    }
+    if (
+      this.board[1][0] === playerName &&
+      this.board[1][1] === playerName &&
+      this.board[1][2] === playerName
+    ) {
+      return true
+    }
+    if (
+      this.board[2][0] === playerName &&
+      this.board[2][1] === playerName &&
+      this.board[2][2] === playerName
+    ) {
+      return true
+    }
+    if (
+      this.board[0][0] === playerName &&
+      this.board[1][0] === playerName &&
+      this.board[2][0] === playerName
+    ) {
+      return true
+    }
+    if (
+      this.board[0][1] === playerName &&
+      this.board[1][1] === playerName &&
+      this.board[2][1] === playerName
+    ) {
+      return true
+    }
+    if (
+      this.board[0][2] === playerName &&
+      this.board[1][2] === playerName &&
+      this.board[2][2] === playerName
+    ) {
+      return true
+    }
+    if (
+      this.board[0][0] === playerName &&
+      this.board[1][1] === playerName &&
+      this.board[2][2] === playerName
+    ) {
+      return true
+    }
+    if (
+      this.board[0][2] === playerName &&
+      this.board[1][1] === playerName &&
+      this.board[2][0] === playerName
+    ) {
+      return true
+    }
+    return false
+  }
+  public checkDraw() {
+    if (
+      this.board[0][0] !== '' &&
+      this.board[0][1] !== '' &&
+      this.board[0][2] !== '' &&
+      this.board[1][0] !== '' &&
+      this.board[1][1] !== '' &&
+      this.board[1][2] !== '' &&
+      this.board[2][0] !== '' &&
+      this.board[2][1] !== '' &&
+      this.board[2][2] !== ''
+    ) {
+      return true
+    }
     return false
   }
 }

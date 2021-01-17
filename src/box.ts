@@ -19,7 +19,7 @@ export class Box extends LitElement {
         .button {
           background-color: var(--background-color);
           color: var(--on-background-color);
-          font-size: 200%;
+          font-size: 300%;
           width: 100%;
           height: 100%;
         }
@@ -28,17 +28,19 @@ export class Box extends LitElement {
   }
 
   private onClick() {
-    this.label = this.game.Play(this.id)
-    const customEventCheck = new CustomEvent('on-new-box-click', {
-      bubbles: true,
-      composed: true,
-    })
-    this.dispatchEvent(customEventCheck)
-    const customEventReset = new CustomEvent('on-new-game-start', {
-      bubbles: true,
-      composed: true,
-    })
-    this.dispatchEvent(customEventReset)
+    if (this.label === undefined || this.label === '') {
+      this.label = this.game.Play(this.id)
+      const customEventCheck = new CustomEvent('on-new-box-click', {
+        bubbles: true,
+        composed: true,
+      })
+      this.dispatchEvent(customEventCheck)
+      const customEventReset = new CustomEvent('on-new-game-start', {
+        bubbles: true,
+        composed: true,
+      })
+      this.dispatchEvent(customEventReset)
+    }
   }
 
   render() {
