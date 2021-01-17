@@ -44,8 +44,8 @@ export class TicTacToe extends LitElement {
     return html`
       <div class="tic-tac-toe">
         <button class="reset" @click="${() => this.resetGame()}">Reset</button>
-        <div class="score">X: Player 1 | Score: ${this.player1Score}</div>
-        <div class="score">O: Player 2 | Score: ${this.player2Score}</div>
+        <div class="score">X : Player 1 | Score: ${this.player1Score}</div>
+        <div class="score">O : Player 2 | Score: ${this.player2Score}</div>
         <tic-tac-toe-board
           .game="${this.game}"
           .reset="${this.reset}"

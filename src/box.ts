@@ -27,6 +27,14 @@ export class Box extends LitElement {
     ]
   }
 
+  render() {
+    if (this.reset) {
+      this.label = ''
+      this.reset = false
+    }
+    return html` <button class="button" id="" @click="${this.onClick}">${this.label}</button> `
+  }
+
   private onClick() {
     if (this.label === undefined || this.label === '') {
       this.label = this.game.Play(this.id)
@@ -41,13 +49,5 @@ export class Box extends LitElement {
       })
       this.dispatchEvent(customEventReset)
     }
-  }
-
-  render() {
-    if (this.reset) {
-      this.label = ''
-      this.reset = false
-    }
-    return html` <button class="button" id="" @click="${this.onClick}">${this.label}</button> `
   }
 }
