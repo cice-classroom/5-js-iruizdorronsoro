@@ -12,6 +12,9 @@ export class Box extends LitElement {
   @property({ type: Boolean })
   reset!: boolean
 
+  @property({ type: Boolean })
+  disabled!: boolean
+
   static get styles() {
     return [
       general,
@@ -29,10 +32,21 @@ export class Box extends LitElement {
 
   render() {
     if (this.reset) {
-      this.label = ''
-      this.reset = false
+      this.resetParent()
+    } else if (this.disabled) {
+      return html` <button class="button" id="" }>${this.label}</button> `
     }
-    return html` <button class="button" id="" @click="${this.onClick}">${this.label}</button> `
+    return html` <button class="button" id="" @click="${this.onClick}" }>${this.label}</button> `
+  }
+  private resetParent() {
+    this.label = ''
+    this.disabled = false
+    this.reset = false
+    const customEventCheck = new CustomEvent('on-reset', {
+      bubbles: true,
+      composed: true,
+    })
+    this.dispatchEvent(customEventCheck)
   }
 
   private onClick() {
